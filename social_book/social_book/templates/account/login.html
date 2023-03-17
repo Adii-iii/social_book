@@ -57,55 +57,16 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Login To DeskApp</h2>
 						</div>
-						<form action="/signup", method="post">
+						<h3>Sign up to Social Book</h3>
+						<form action="/signin" , method="post">
 							{% csrf_token %}
-							<div class="select-role">
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn active">
-										<input type="radio" name="options" id="admin">
-										<div class="icon"><img src="static/vendors/images/briefcase.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Manager
-									</label>
-									<label class="btn">
-										<input type="radio" name="options" id="user">
-										<div class="icon"><img src="static/vendors/images/person.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Employee
-									</label>
-								</div>
-							</div>
-							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" placeholder="Username">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
-								</div>
-							</div>
-							<div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" placeholder="**********">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
-								</div>
-							</div>
-							<div class="row pb-30">
-								<div class="col-6">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										-->
-										<a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a>
+							<label for="">Username</label>
+							<input type="text" ,size="30" , id="username" , name='username' , placeholder="Enter username" required>
+							<br><br>
+							<label for="">Password</label>
+							<input type="password" , id="pass1" , name='pass1' , placeholder="Enter password" required>
+							<br><br>
+							<button type="submit">Sign in</button>
 									</div>
 									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
 									<div class="input-group mb-0">
@@ -120,9 +81,5 @@
 		</div>
 	</div>
 	<!-- js -->
-	<script src="static/vendors/scripts/core.js"></script>
-	<script src="static/vendors/scripts/script.min.js"></script>
-	<script src="static/vendors/scripts/process.js"></script>
-	<script src="static/vendors/scripts/layout-settings.js"></script>
 </body>
 </html>

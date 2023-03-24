@@ -23,9 +23,10 @@ class Book(models.Model):
     author = models.CharField(max_length=200)
     # file_type = models.CharField(max_length=10)
     # file_path = models.CharField(max_length=200)
-    # file = models.FileField(upload_to='books/')
+    file = models.FileField(upload_to='books/')
     # file_name = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class BookUpload(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

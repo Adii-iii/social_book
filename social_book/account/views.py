@@ -99,22 +99,21 @@ def signout(request):
     messages.success(request, "Logged out successfully")
     return redirect("home")
 
-def upload_book(request):
-    if request.method == "POST":
-        book = Book.objects.create(
-            title=request.POST['title'],
-            author=request.POST['author'],
-            url=request.POST['url'],
-        )
-        upload = BookUpload.objects.create(
-            user=request.user,
-            book=book,
-            file=request.FILES['file'],
-        )
-        token = upload.generate_token()
-        return render(request, "account/file_token.html", {"token": token, "file_url": upload.file.url})
-    else:
-        return render(request, "account/upload_book.html")
+class upload_book(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    def post(self, request):
+        uploaded_file = UploadedFile(file=request.data['file'], user=request.user)
+        uploaded_file.save()
+        return HttpResponse(status=201)
+    
+    def get(self, request, file_id):
+        uploaded_file = get_object_or_404(UploadedFile, id=file_id, user=request.user)
+        file_path = uploaded_file.file.path
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/octet-stream")
+            response['Content-Disposition'] = 'inline; filename=' + uploaded_file.file.name
+            return response
 
 
 def view_books(request):

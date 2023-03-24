@@ -54,7 +54,7 @@ def signup(request):
             messages.error(request, "This email is already taken")
             return redirect("signup")
         myuser = User.objects.create_user(email, pass1)
-        myuser.first_name = fname
+        myuser.first_name = "fname"
 
         myuser.save()
 
@@ -115,11 +115,10 @@ class upload_book(APIView):
             response['Content-Disposition'] = 'inline; filename=' + uploaded_file.file.name
             return response
 
-
+# @csrf_exempt
+@api_view(["GET"])
 def view_books(request):
-    books = Book.objects.all()
-    for book in books:
-        book.url = settings.MEDIA_URL + book.file_path
+    books = UploadedFile.objects.filter(user_id=request.user)
     return render(request, "account//book.html", {"books": books})
 
 @csrf_exempt

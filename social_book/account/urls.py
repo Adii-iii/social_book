@@ -10,7 +10,7 @@ urlpatterns = [
     path('signout', views.signout, name="signout"),
     path('authors', views.show, name="public_users"),
     # path('upload/', views.upload_book, name='upload_book'),
-    # path('book', views.view_books, name="book"),
+    path('book', views.view_books, name="book"),
     path('persons/', views.person_list, name='person-list'),
     path('file_token/<int:file_id>/', FileTokenView.as_view(), name='file_token'),
     path('token-auth/', CustomAuthToken.as_view()),

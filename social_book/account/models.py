@@ -67,7 +67,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     public_visibility = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
     address = models.CharField(max_length=40, default="")
     phone_no = models.CharField(max_length=10)
     birthday = models.DateField(default=date.today)

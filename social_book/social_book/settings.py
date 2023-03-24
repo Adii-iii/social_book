@@ -39,7 +39,38 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
 ]
+
+'''DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'path.to.custom.UserCreateSerializer',
+    },
+    'TOKEN_MODEL': 'path.to.custom.Token',
+    'HIDE_USERS': False,
+    'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    'LOGIN_FIELD': 'email',
+}'''
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'HIDE_USERS': False,
+    'SERIALIZERS': {
+        'user_create': 'path.to.custom.serializer.UserCreateSerializer',
+        'user': 'path.to.custom.serializer.UserSerializer',
+        'current_user': 'path.to.custom.serializer.CurrentUserSerializer',
+        'token_create': 'path.to.custom.serializer.TokenCreateSerializer',
+    },
+    'TOKEN_MODEL': 'auth.Token',
+    'TOKEN_CREATE_MODEL': 'djoser.models.Token',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,3 +158,14 @@ STATICFILES_DIRS = "D:\\Markytics\\social_book\\social_book\\social_book\\social
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser'
+    ],
+}

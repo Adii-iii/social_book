@@ -9,6 +9,33 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
+# from ...social_book import settings
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
+from rest_framework.authtoken.models import Token
+
+# User = get_user_model()
+
+User = settings.AUTH_USER_MODEL
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    # file_type = models.CharField(max_length=10)
+    # file_path = models.CharField(max_length=200)
+    # file = models.FileField(upload_to='books/')
+    # file_name = models.CharField(max_length=200)
+    url = models.CharField(max_length=200)
+
+class BookUpload(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='media/')
+    
+    def generate_token(self):
+        token, created = Token.objects.get_or_create(user=self.user)
+        return token.key
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -44,6 +71,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone_no = models.CharField(max_length=10)
     birthday = models.DateField(default=date.today)
     age = models.IntegerField(null=True, blank=True)
+    first_name = models.CharField(max_length=30, default="")
 
     # age = models.PositiveIntegerField(max_length=30, editable=False)
     USERNAME_FIELD = "email"
@@ -68,3 +96,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Person(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+    
+
+class UploadedFile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='uploads/')
